@@ -1,6 +1,6 @@
-# Dotfiles.nix
+# Home Manager Config
 
-Dotfiles, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://github.com/rycee/home-manager).
+Home enviornment setup, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://github.com/rycee/home-manager).
 
 ## How to use
 
@@ -35,10 +35,15 @@ Dotfiles, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://gi
    $ make chromebook-update
    ```
 
-## How to disable
+## How to uninstall
 
-Home manager has the ability to somewhat cleanly remove itself from your system.
+Home manager has the ability to (mostly) cleanly remove itself from your system.
 There are two caviats that I have noticed:
 
 1. Files backed-up during the initial setup will not be re-instated. You will have to do that manually
 1. The current session is dirty, restart your login session
+
+```bash
+   $ make uninstall
+```
+
