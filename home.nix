@@ -31,6 +31,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    __RD_HM_UPDATE_APPLIED = "123";
   };
 
   # Let Home Manager install and manage itself.
