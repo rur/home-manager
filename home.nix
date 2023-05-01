@@ -6,14 +6,7 @@
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
-  home.packages = with pkgs; [
-    jq
-    ripgrep
-    htop
-    fortune
-    delta
-    tree
-  ];
+  imports = [ ./packages.nix ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
