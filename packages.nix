@@ -1,10 +1,10 @@
 { pkgs, ... }: {
-  home.packages = [
-    pkgs.jq
-    pkgs.ripgrep
-    pkgs.htop
-    pkgs.fortune
-    pkgs.delta
-    pkgs.tree
+  home.packages = with pkgs; [
+    jq
+    ripgrep
+    htop
+    fortune
+    delta
+    tree
   ];
 }

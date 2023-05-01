@@ -6,7 +6,7 @@
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
-  imports = [ ./packages.nix ];
+  imports = [ ./packages.nix ./git.nix ./vim.nix ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -45,35 +45,6 @@
         ll = "ls -al";
         nv = "nvim";
       };
-    };
-
-    git = {
-      enable = true;
-      package = pkgs.gitAndTools.gitFull;
-      includes = [
-        { path = ./git/.gitconfig; }
-      ];
-    };
-
-    neovim = {
-      enable = true;
-      extraConfig = ''
-        colorscheme gruvbox
-        let g:context_nvim_no_redraw = 1
-        set mouse=a
-        set number
-        set termguicolors
-      '';
-      plugins = with pkgs.vimPlugins;
-        [
-          editorconfig-vim
-          gruvbox-community
-          vim-airline
-          vim-nix
-        ]; # Only loaded if programs.neovim.extraConfig is set
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
     };
   };
 }
