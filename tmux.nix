@@ -8,9 +8,9 @@
     prefix = "C-Space";
 
     plugins = with pkgs.tmuxPlugins; [
+      yank
       better-mouse-mode
       sensible
-      vim-tmux-navigator
     ];
 
     extraConfig = builtins.readFile ./tmux.conf;

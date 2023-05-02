@@ -6,5 +6,6 @@
     fortune
     delta
     tree
+    xclip
   ];
 }
