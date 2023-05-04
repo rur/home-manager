@@ -1,6 +1,6 @@
 # Home Manager Config
 
-Home enviornment setup, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://github.com/rycee/home-manager).
+Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://github.com/rycee/home-manager).
 
 ## How to use
 

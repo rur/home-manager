@@ -89,23 +89,10 @@ if has("autocmd")
     au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown
   augroup END
 
-  " disable endwise for anonymous functions
-  augroup filetype_elixir_endwise
-    au!
-    au BufNewFile,BufRead *.{ex,exs}
-          \ let b:endwise_addition = '\=submatch(0)=="fn" ? "end)" : "end"'
-  augroup END
-
   " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
   augroup filetype_python
     au!
     au FileType python setl sts=4 ts=4 sw=4
-  augroup END
-
-  " follow Elm conventions
-  augroup filetype_elm
-    au!
-    au FileType elm setl sts=4 ts=4 sw=4
   augroup END
 
   " delete Fugitive buffers when they become inactive
@@ -175,10 +162,6 @@ let mapleader=','
 " Y u no consistent?
 nnoremap Y y$
 
-" open vimrc and reload it
-nnoremap <Leader>vv :vsplit $HOME/.config/nixpkgs/vimrc<CR>
-nnoremap <Leader>sv :source $HOME/.config/nixpkgs/vimrc<CR>
-
 " disable man page for word under cursor
 nnoremap K <Nop>
 
@@ -228,95 +211,4 @@ nnoremap <Left>  :echo "no!"<CR>
 nnoremap <Right> :echo "no!"<CR>
 nnoremap <Up>    :echo "no!"<CR>
 nnoremap <Down>  :echo "no!"<CR>
-
-" Plugins {{{
-if exists('g:vscode')
-  let g:ale_enabled = 0 " disable ale
-  let g:loaded_vimux = 1 " disable vimux
-  let g:goldenview__enable_at_startup = 0 " disable goldenview
-  nnoremap <Leader>f :call VSCodeNotify("workbench.action.quickOpen")<CR>
-  nnoremap <Leader>p :call VSCodeNotify("copyRelativeFilePath")<CR>
-else
-  nnoremap <Leader>gs  :Gstatus<CR>
-  nnoremap <Leader>gd  :Gdiff<CR>
-  nnoremap <Leader>gci :Gcommit<CR>
-  nnoremap <Leader>gw  :Gwrite<CR>
-  nnoremap <Leader>gr  :Gread<CR>
-  nnoremap <Leader>gb  :Git blame<CR>
-  nnoremap <Leader>w :ALEDetail<CR>
-  nnoremap <Leader>x :ALENextWrap<CR>
-  nnoremap <Leader>dd :ALEGoToDefinition<CR>
-  nnoremap <Leader>dt :ALEGoToTypeDefinition<CR>
-  nnoremap <Leader>f :Files<CR>
-  nnoremap <Leader>b :Buffers<CR>
-  nnoremap <Leader>m :History<CR>
-  nnoremap <silent> <S-left> <Esc>:bp<CR>
-  nnoremap <silent> <S-right> <Esc>:bn<CR>
-  nnoremap <Leader>a <Esc>:Rg<space>
-  nnoremap <Leader>u :MundoToggle<CR>
-  nnoremap <Leader>t :wa<CR>\|:TestFile<CR>
-  nnoremap <Leader>T :wa<CR>\|:TestNearest<CR>
-  nmap p <plug>(YoinkPaste_p)
-  nmap P <plug>(YoinkPaste_P)
-  nmap <C-n> <plug>(YoinkPostPasteSwapBack)
-  nmap <C-p> <plug>(YoinkPostPasteSwapForward)
-
-  let g:UltiSnipsSnippetDirectories = ['~/.config/nixpkgs/snippets']
-  let g:ale_elixir_elixir_ls_release = $HOME."/code/elixir-ls/rel"
-  let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
-  let g:ale_haskell_hie_executable = "haskell-language-server-wrapper"
-  let g:ale_lint_on_insert_leave = 0
-  let g:ale_lint_on_text_changed = 'never'
-  let g:ale_linters = {
-        \ 'haskell': ['hlint', 'hie', 'ormolu'],
-        \ 'elixir': ['elixir-ls'],
-        \ 'ruby': ['sorbet', 'ruby', 'rubocop'],
-        \ 'nix': [],
-        \ 'typescript': ['tsserver'],
-        \ 'elm': ['make'] }
-  let g:fzf_layout = { 'down': '~30%' }
-  let g:goldenview__enable_default_mapping = 0
-  let g:lightline = { 'mode_fallback': { 'terminal': 'normal' } }
-  let g:loaded_python_provider = 1
-  let g:mundo_right = 1
-  let g:neoformat_nix_nixfmt = {
-    \ 'exe': 'nixfmt',
-    \ 'args': ['--width', '80'],
-    \ 'stdin': 1,
-    \ }
-  let g:neoformat_enabled_haskell = ['ormolu']
-  let g:neoformat_enabled_json = []
-  let g:neoformat_enabled_nix = ['nixfmt']
-  let g:neoformat_enabled_ruby = []
-  let g:neoformat_enabled_yaml = []
-  let g:neoformat_only_msg_on_error = 1
-  let g:test#preserve_screen = 1
-  let g:test#strategy = "vimux"
-  let g:tmux_navigator_disable_when_zoomed = 1
-  let g:yoinkIncludeDeleteOperations = 1
-  let g:yoinkSavePersistently = 1
-  let g:yoinkSwapClampAtEnds = 0
-
-  function! s:build_quickfix_list(lines)
-    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-    copen
-    cc
-  endfunction
-
-  let g:fzf_action = {
-        \ 'ctrl-q': function('s:build_quickfix_list'),
-        \ 'ctrl-t': 'tab split',
-        \ 'ctrl-x': 'split',
-        \ 'ctrl-v': 'vsplit' }
-endif
-" }}}
-
-" Clipboard integration in spin
-if $SPIN == 1
-    let g:clipboard = {
-        \ 'name': 'pbcopy',
-        \ 'copy': {'+': 'pbcopy', '*': 'pbcopy'},
-        \ 'paste': {'+': 'pbpaste', '*': 'pbpaste'},
-        \ 'cache_enabled': 1 }
-end
 
