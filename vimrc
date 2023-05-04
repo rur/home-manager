@@ -1,12 +1,10 @@
 " General settings {{{
 set encoding=utf-8
 set t_Co=256                      " moar colors
-set clipboard=unnamedplus         " use system clipboard
 set nocompatible                  " nocompatible is good for humans
 syntax enable                     " enable syntax highlighting...
 filetype plugin indent on         " depending on filetypes...
 runtime macros/matchit.vim        " with advanced matching capabilities
-set pastetoggle=<F12>             " for pasting code into Vim
 set timeout tm=1000 ttm=10        " fix slight delay after pressing Esc then O
 set autoread                      " auto load files if vim detects change
 set autowrite                     " auto write files when moving around
@@ -205,6 +203,9 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
+
+nnoremap <M-p> :GFiles<CR>
+nnoremap <M-P> :Files<CR>
 
 " disable cursor keys in normal mode
 nnoremap <Left>  :echo "no!"<CR>
