@@ -5,18 +5,51 @@
     __RD_HM_UPDATE_APPLIED = "789";
   };
 
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+    defaultCommand = "rg --files --hidden --follow";
+    defaultOptions = [ "-m --bind ctrl-a:select-all,ctrl-d:deselect-all" ];
+  };
+
   programs.bash = {
     enable = true;
-    profileExtra = ''
-      eval "$(ssh-agent -s)"
-    '';
+    profileExtra = builtins.readFile ./profile;
+    historyControl = [ "ignorespace" "ignoredups" ];
+    sessionVariables = {
+      PROMPT_COMMAND = "echo";
+      EDITOR = "nvim";
+      SHELL = "${pkgs.bashInteractive}/bin/bash";
+      BAT_THEME = "OneHalfDark";
+    };
     shellAliases = {
-      ll = "ls -al";
+      rm = "rm -i";
+      mv = "mv -i";
+      cp = "cp -i";
+      grep = "grep --color=auto";
+      sudo = "sudo ";
       nv = "nvim";
     };
+    shellOptions = [
+      "cdspell"
+      "checkwinsize"
+      "cmdhist"
+      "dotglob"
+      "histappend"
+      "nocaseglob"
+    ];
+    initExtra = builtins.readFile ./bashrc;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
   };
 
   home.file = {
+    ".inputrc".source = ./inputrc;
+
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.

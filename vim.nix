@@ -1,44 +1,69 @@
 { pkgs, ... }:
+let
+  goldenview = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    name = "goldenview";
+    src = pkgs.fetchFromGitHub {
+      owner = "zhaocai";
+      repo = "GoldenView.Vim";
+      rev = "ac0ee3014caa36c52e8352d11c308b27a159113c";
+      sha256 = "1gzp81spsbg20svwd14rixhgl39ir458p5k9q5jjv9l5rbnbinad";
+    };
+  };
 
-{
+  shadowenv = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    name = "shadowenv";
+    src = pkgs.fetchFromGitHub {
+      owner = "Arkham";
+      repo = "shadowenv.vim";
+      rev = "6422c3a651c3788881d01556cb2a90bdff7bf002";
+      sha256 = "1lfckdxkd9cl0bagcxwfg0gb84bs2sxxscrwd86yrqyhrvm24hik";
+    };
+  };
+
+  vim-yoink = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    name = "vim-yoink";
+    src = pkgs.fetchFromGitHub {
+      owner = "svermeulen";
+      repo = "vim-yoink";
+      rev = "89ed6934679fdbc3c20f552b50b1f869f624cd22";
+      sha256 = "0r8m43lkc1a7n0bkp1xfn9n3n44n8vsdvzz908ma6xg6ihwqlhbs";
+    };
+  };
+in {
   programs.neovim = {
     enable = true;
-    extraConfig = ''
-      colorscheme gruvbox
-      let g:context_nvim_no_redraw = 1
-      set mouse=a
-      set number
-      set termguicolors
-
-" NERD Tree Config
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
-" Start NERDTree when Vim is started without file arguments.
-autocmd StdinReadPre * let s:std_in=1
-      autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-
-      " Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-      \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-    '';
-    plugins = with pkgs.vimPlugins; [
-      editorconfig-vim
-      gruvbox-community
-      vim-airline
-      vim-nix
-      vim-fugitive
-      vim-gitgutter
-      nerdtree
-    ]; # Only loaded if programs.neovim.extraConfig is set
     viAlias = true;
     vimAlias = true;
-    vimdiffAlias = true;
+    withRuby = false;
+    plugins = with pkgs.vimPlugins; [
+      ale
+      fzf-vim
+      goldenview
+      lightline-vim
+      neoformat
+      quickfix-reflector-vim
+      splitjoin-vim
+      supertab
+      tabular
+      ultisnips
+      vim-abolish
+      vim-commentary
+      vim-endwise
+      vim-eunuch
+      vim-fugitive
+      vim-gruvbox8
+      vim-mundo
+      vim-polyglot
+      vim-repeat
+      vim-rhubarb
+      vim-surround
+      vim-test
+      vim-tmux-navigator
+      vim-unimpaired
+      vim-visualstar
+      vim-yoink
+      vimux
+    ];
+    extraConfig = builtins.readFile ./vimrc;
   };
 }

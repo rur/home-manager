@@ -1,11 +1,21 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    jq
     ripgrep
-    htop
-    fortune
     delta
-    tree
     xclip
+    bashInteractive
+    bat
+    comma
+    coreutils
+    gnugrep
+    gnused
+    htop
+    jq
+    nix-bash-completions
+    nixfmt
+    ripgrep
+    tree
+    watch
+    wget
   ];
 }
