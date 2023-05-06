@@ -29,6 +29,7 @@
       grep = "grep --color=auto";
       sudo = "sudo ";
       nv = "nvim";
+      fe = "find_and_edit"; # see .profile for function definition
     };
     shellOptions = [
       "cdspell"
