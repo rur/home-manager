@@ -27,6 +27,7 @@ in {
     withRuby = false;
     plugins = with pkgs.vimPlugins; [
       ale
+      nerdtree
       fzf-vim
       goldenview
       lightline-vim

@@ -204,6 +204,8 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
 
+nnoremap <M-f> :NERDTreeToggle<CR>
+
 nnoremap <M-p> :GFiles<CR>
 nnoremap <M-P> :Files<CR>
 

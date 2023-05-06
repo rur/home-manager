@@ -16,6 +16,7 @@
     ripgrep
     tree
     watch
+    fswatch
     wget
   ];
 }
