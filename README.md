@@ -26,24 +26,18 @@ Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manag
    ```bash
    $ git clone https://github.com/rur/home-manager.git && cd home-manager
    ```
-1. Run the flake and activate your env (`chromebook` used for example, choose appropriate env):
+1. Run the flake and activate your env**:
    ```bash
    $ make chromebook
    ```
-1. Then you can update it with (`chromebook` used for example, choose appropriate env):
+1. Then you can update dependencies**:
    ```bash
    $ make chromebook-update
    ```
+1. You can also remove the config (imperfectly) **:
+   ```bash
+   $ make chromebook-remove
+   ```
 
-## How to uninstall
-
-Home manager has the ability to (mostly) cleanly remove itself from your system.
-There are two caviats that I have noticed:
-
-1. Files backed-up during the initial setup will not be re-instated. You will have to do that manually
-1. The current session is dirty, restart your login session
-
-```bash
-   $ make uninstall
-```
+** `chromebook` used for example, choose appropriate env.
 

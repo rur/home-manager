@@ -1,14 +1,15 @@
 { pkgs, ... }:
 let
-  goldenview = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "goldenview";
-    src = pkgs.fetchFromGitHub {
-      owner = "zhaocai";
-      repo = "GoldenView.Vim";
-      rev = "ac0ee3014caa36c52e8352d11c308b27a159113c";
-      sha256 = "1gzp81spsbg20svwd14rixhgl39ir458p5k9q5jjv9l5rbnbinad";
-    };
-  };
+  #.... this is an example of fetching a plugin not found in nixpkgs
+  # goldenview = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  #   name = "goldenview";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "zhaocai";
+  #     repo = "GoldenView.Vim";
+  #     rev = "ac0ee3014caa36c52e8352d11c308b27a159113c";
+  #     sha256 = "1gzp81spsbg20svwd14rixhgl39ir458p5k9q5jjv9l5rbnbinad";
+  #   };
+  # };
 in {
   programs.neovim = {
     enable = true;
@@ -36,7 +37,6 @@ in {
       vim-go
       vim-nix
 
-      goldenview
       lightline-vim
       splitjoin-vim
       tabular

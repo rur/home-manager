@@ -8,10 +8,10 @@ chromebook:
 
 chromebook-update: | flakeupdate chromebook
 
+chromebook-remove:
+	nix run . -- uninstall --flake '.#ruaidhridevery@chromebook'
+	echo 'Home manager uninstalled, I recommend restarting your session'
+
 flakeupdate:
 	nix flake update 
-
-uninstall:
-	nix run . -- uninstall
-	echo 'Home manager uninstalled, I recommend restarting your session'
 
