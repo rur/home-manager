@@ -1,0 +1,10 @@
+# when leaving the console clear the screen to increase privacy
+if [ "$SHLVL" = 1 ]; then
+    [ -x clear_console ] && clear_console -q
+fi
+
+# kill local ssh-agent daemon if it exists
+if ( "$SSH_AGENT_PID" != "" ) then
+  eval `ssh-agent -k`
+fi
+

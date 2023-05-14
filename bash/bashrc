@@ -17,7 +17,7 @@ function is_direnv_dir {
 has_program direnv && eval "$(direnv hook bash)"
 
 # get an SSH Agent started
-eval "$(ssh-agent -s)"
+eval "$(ssh-agent -s -t 1800)"
 
 ## Load secrets
 safe_source "$HOME/.bash_secrets"
