@@ -1,0 +1,152 @@
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+
+# This is only loaded in single-user installation
+if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+
+. "$HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh"
+
+setopt PROMPT_SUBST
+
+## Fancy prompt
+red='%F{red}'
+RED='%B%F{red}'
+blue='%F{blue}'
+BLUE='%B%F{blue}'
+cyan='%F{cyan}'
+CYAN='%B%F{blue}'
+black='%F{black}'
+BLACK='%B%F{black}'
+green='%F{green}'
+GREEN='%B%F{green}'
+yellow='%F{yellow}'
+YELLOW='%B%F{yellow}'
+magenta='%F{magenta}'
+MAGENTA='%B%F{magenta}'
+white='%F{white}'
+WHITE='%B%F{white}'
+NC='%f%b'
+
+_newline=$'\n'
+_lineup=$'\e[1A'
+_linedown=$'\e[1B'
+
+function is_vim_running {
+  jobs | grep -o 'vim' &> /dev/null
+}
+
+function prev_cmd_status {
+  if [[ $? == 0 ]]; then
+    echo "%F{white}%K{white}█%F{black}ok%{%b%F{white}%K{white}█%k%f%}"
+  else
+    echo "%F{red}%K{red}█%F{black}error: %?%{%b%F{red}%K{red}█%k%f%}"
+  fi
+}
+PROMPT_INFO="%{${BLACK}%}[%t]%{${NC}%} %{${green}%}%n%{${NC}%} %{${BLUE}%}%~"
+PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
+PROMPT_GIT="${GREEN}\$(__git_ps1)"
+PROMPT_FOOTER="${_newline}%{\$(is_vim_running && echo \"${magenta}\" || echo \"${white}\")%}↳ %{${GREEN}%}\$ %{${NC}%}"
+
+PROMPT="${PROMPT_INFO}${PROMPT_DIRENV}${PROMPT_GIT} ${PROMPT_FOOTER}"
+
+PROMPT_STATUS="\$(prev_cmd_status)"
+RPROMPT="%{${_lineup}%}${PROMPT_STATUS}%{${_linedown}%}"
+
+# Disable console start/stop: makes ^S and ^Q go through
+stty -ixon
+
+## Colored manpages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;91m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;93m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;92m'
+
+## Utilities
+# go back n directories
+function b {
+    str=""
+    count=0
+    while [ "$count" -lt "$1" ];
+    do
+        str=$str"../"
+        let count=count+1
+    done
+    cd $str
+}
+
+# extract files: depends on zip, unrar and p7zip
+function ex {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via ex()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+# mkdir && cd
+function mkcd {
+  mkdir -p "$1" && cd "$1";
+}
+
+# find or create tmux session
+function tat {
+  name=$(basename `pwd` | sed -e 's/\.//g')
+
+  if tmux ls 2>&1 | grep "$name"; then
+    tmux attach -t "$name"
+  elif [ -f .envrc ]; then
+    direnv exec / tmux new-session -s "$name"
+  else
+    tmux new-session -s "$name"
+  fi
+}
+
+# repeat command
+function repeat() {
+  number=$1
+  shift
+  for n in $(seq $number); do
+    if ! $@; then
+      echo "Sorry, something failed!"
+      return 1
+    fi
+  done
+  return 0
+}
+
+# find and edit
+function find_and_edit() {
+  if test -d .git
+  then
+    SOURCE="$(git ls-files)"
+  else
+    SOURCE="$(find . -type f)"
+  fi
+  files="$(fzf --preview='bat --color=always --paging=never --style=changes {} | head -$FZF_PREVIEW_LINES' --select-1 --multi --query="$@" <<< "$SOURCE")"
+  if [[ "$?" != "0" ]]
+  then
+    return 1
+  fi
+  vim $files
+}
+

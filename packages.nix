@@ -3,7 +3,6 @@
     ripgrep
     delta
     xclip
-    bashInteractive
     bat
     comma
     coreutils
@@ -11,7 +10,6 @@
     gnused
     htop
     jq
-    nix-bash-completions
     nixfmt
     ripgrep
     tree

@@ -14,7 +14,7 @@ function is_direnv_dir {
 }
 
 ## Load direnv
-has_program direnv && eval "$(direnv hook bash)"
+has_program direnv && eval "$(direnv hook zsh)"
 
 # get an SSH Agent started
 eval "$(ssh-agent -s -t 1800)"

@@ -2,11 +2,11 @@
 
 Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://github.com/rycee/home-manager).
 
-## How to use
+## Setup
 
 1. Install Nix:
    ```bash
-   $ sh <(curl -L https://nixos.org/nix/install)
+   $ sh <(curl -L https://nixos.org/nix/install) --daemon
    ```
 1. Enable [Nix Flakes](https://www.tweag.io/blog/2020-05-25-flakes):
    ```bash
@@ -28,16 +28,13 @@ Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manag
    ```
 1. Run the flake and activate your env**:
    ```bash
-   $ make chromebook
+   $ make <machine>
    ```
 1. Then you can update dependencies**:
    ```bash
-   $ make chromebook-update
+   $ make <machine>-update
    ```
 1. You can also remove the config (imperfectly) **:
    ```bash
-   $ make chromebook-remove
+   $ make <machine>-remove
    ```
-
-** `chromebook` used for example, choose appropriate env.
-
