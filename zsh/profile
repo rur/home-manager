@@ -3,59 +3,6 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
-# This is only loaded in single-user installation
-if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
-  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
-
-. "$HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh"
-
-setopt PROMPT_SUBST
-
-## Fancy prompt
-red='%F{red}'
-RED='%B%F{red}'
-blue='%F{blue}'
-BLUE='%B%F{blue}'
-cyan='%F{cyan}'
-CYAN='%B%F{blue}'
-black='%F{black}'
-BLACK='%B%F{black}'
-green='%F{green}'
-GREEN='%B%F{green}'
-yellow='%F{yellow}'
-YELLOW='%B%F{yellow}'
-magenta='%F{magenta}'
-MAGENTA='%B%F{magenta}'
-white='%F{white}'
-WHITE='%B%F{white}'
-NC='%f%b'
-
-_newline=$'\n'
-_lineup=$'\e[1A'
-_linedown=$'\e[1B'
-
-function is_vim_running {
-  jobs | grep -o 'vim' &> /dev/null
-}
-
-function prev_cmd_status {
-  if [[ $? == 0 ]]; then
-    echo "%F{white}%K{white}█%F{black}ok%{%b%F{white}%K{white}█%k%f%}"
-  else
-    echo "%F{red}%K{red}█%F{black}error: %?%{%b%F{red}%K{red}█%k%f%}"
-  fi
-}
-PROMPT_INFO="%{${BLACK}%}[%t]%{${NC}%} %{${green}%}%n%{${NC}%} %{${BLUE}%}%~"
-PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
-PROMPT_GIT="${GREEN}\$(__git_ps1)"
-PROMPT_FOOTER="${_newline}%{\$(is_vim_running && echo \"${magenta}\" || echo \"${white}\")%}↳ %{${GREEN}%}\$ %{${NC}%}"
-
-PROMPT="${PROMPT_INFO}${PROMPT_DIRENV}${PROMPT_GIT} ${PROMPT_FOOTER}"
-
-PROMPT_STATUS="\$(prev_cmd_status)"
-RPROMPT="%{${_lineup}%}${PROMPT_STATUS}%{${_linedown}%}"
-
 # Disable console start/stop: makes ^S and ^Q go through
 stty -ixon
 

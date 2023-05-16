@@ -1,0 +1,59 @@
+if [[ -o interactive ]]; then
+  . "$HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh"
+
+  setopt PROMPT_SUBST
+
+  autoload colors && colors
+
+  ## Fancy prompt
+  # see color code guide https://unix.stackexchange.com/questions/124407/what-color-codes-can-i-use-in-my-bash-ps1-prompt/124409#124409
+  red='%F{203}'
+  bg_red='%K{203}'
+  RED='%B%F{red}'
+  blue='%F{blue}'
+  BLUE='%B%F{69}'
+  cyan='%F{cyan}'
+  CYAN='%B%F{blue}'
+  black='%F{black}'
+  BLACK='%B%F{black}'
+  green='%F{green}'
+  light_green='%F{119}'
+  GREEN='%B%F{green}'
+  yellow='%F{yellow}'
+  YELLOW='%B%F{yellow}'
+  magenta='%F{magenta}'
+  MAGENTA='%B%F{magenta}'
+  white='%F{white}'
+  WHITE='%B%F{white}'
+  grey='%F{243}'
+  orange='%F{172}'
+  light_orange='%F{221}'
+  NC='%f%b'
+
+  _newline=$'\n'
+  _lineup=$'\e[1A'
+  _linedown=$'\e[1B'
+
+  function is_vim_running {
+    jobs | grep -o 'vim' &> /dev/null
+  }
+
+  function prev_cmd_status {
+    if [[ $? == 0 ]]; then
+      echo "%F{white}%K{white}█%F{black}ok%{%b%F{white}%K{white}█%k%f%}"
+    else
+      echo "${red}${bg_red}█%F{black}error: %?%{%b${red}${bg_red}█%k%f%}"
+    fi
+  }
+  PROMPT_INFO="%{${grey}%}[%t]%{${NC}%} %{${light_green}%}%n%{${NC}%} %{${BLUE}%}%~"
+  PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
+  PROMPT_GIT="${light_orange}\$(__git_ps1)"
+  PROMPT_FOOTER="${_newline}%{\$(is_vim_running && echo \"${magenta}\" || echo \"${grey}\")%}↳ %{${WHITE}%}$ %{${NC}%}"
+
+  PROMPT="${PROMPT_INFO}${PROMPT_DIRENV}${PROMPT_GIT} ${PROMPT_FOOTER}"
+
+  PROMPT_STATUS="\$(prev_cmd_status)"
+  RPROMPT="%{${_lineup}%}${PROMPT_STATUS}%{${_linedown}%}"
+
+fi
+

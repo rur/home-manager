@@ -9,6 +9,7 @@
   programs.zsh = {
     enable = true;
     profileExtra = builtins.readFile ./zsh/profile;
+    initExtraFirst = builtins.readFile ./zsh/prompt;
     initExtra = builtins.readFile ./zsh/zshrc;
     logoutExtra = builtins.readFile ./zsh/logout;
     history.ignoreSpace = true;

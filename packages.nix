@@ -13,6 +13,7 @@
     nixfmt
     ripgrep
     tree
+    pstree
     watch
     fswatch
     wget
