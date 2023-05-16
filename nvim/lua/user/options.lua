@@ -36,6 +36,6 @@ vim.opt.sidescrolloff = 8
 vim.opt.shortmess:append "c"
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]       -- vim will treat "-" as an word character
+--vim.cmd [[set iskeyword+=-]]       -- vim will treat "-" as an word character
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 

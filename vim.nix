@@ -24,6 +24,7 @@ in {
       cmp-cmdline
       cmp_luasnip
       cmp-path
+      cmp-nvim-lsp
       comment-nvim
       friendly-snippets
       luasnip
