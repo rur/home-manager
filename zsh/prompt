@@ -10,8 +10,8 @@ if [[ -o interactive ]]; then
   red='%F{203}'
   bg_red='%K{203}'
   RED='%B%F{red}'
-  blue='%F{69}'
-  BLUE='%B%F{69}'
+  blue='%F{81}'
+  BLUE='%B%F{81}'
   cyan='%F{cyan}'
   CYAN='%B%F{blue}'
   black='%F{black}'
@@ -21,8 +21,8 @@ if [[ -o interactive ]]; then
   GREEN='%B%F{green}'
   yellow='%F{yellow}'
   YELLOW='%B%F{yellow}'
-  magenta='%F{magenta}'
-  MAGENTA='%B%F{magenta}'
+  magenta='%F{201}'
+  MAGENTA='%B%F{201}'
   white='%F{white}'
   WHITE='%B%F{white}'
   grey='%F{243}'
@@ -34,11 +34,19 @@ if [[ -o interactive ]]; then
   _lineup=$'\e[1A'
   _linedown=$'\e[1B'
 
-  function is_vim_running {
-    jobs | grep -o 'vim' &> /dev/null
+  function print_term_color_codes {
+    local color=16;
+    while [ $color -lt 245 ]; do
+        echo -e "$color: \\033[38;5;${color}mhello\\033[48;5;${color}mworld\\033[0m"
+        ((color++));
+    done
   }
 
-  function prev_cmd_status {
+  function is_suspended_jobs {
+    jobs | grep -o 'suspended' &> /dev/null
+  }
+
+  function __prev_cmd_status {
     if [[ $? == 0 ]]; then
       echo "%F{white}%K{white}█%F{black}ok%{%b%F{white}%K{white}█%k%f%}"
     else
@@ -48,11 +56,11 @@ if [[ -o interactive ]]; then
   PROMPT_INFO="%{${grey}%}[%t]%{${NC}%} %{${light_green}%}%n%{${NC}%} %{${blue}%}%~"
   PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
   PROMPT_GIT="${light_orange}\$(__git_ps1)"
-  PROMPT_FOOTER="${_newline}%{\$(is_vim_running && echo \"${magenta}\" || echo \"${grey}\")%}↳ %{${WHITE}%}$ %{${NC}%}"
+  PROMPT_FOOTER="${_newline}%{\$(is_suspended_jobs && echo \"${magenta}\" || echo \"${grey}\")%}↳ %{${WHITE}%}$ %{${NC}%}"
 
   PROMPT="${PROMPT_INFO}${PROMPT_DIRENV}${PROMPT_GIT} ${PROMPT_FOOTER}"
 
-  PROMPT_STATUS="\$(prev_cmd_status)"
+  PROMPT_STATUS="\$(__prev_cmd_status)"
   RPROMPT="%{${_lineup}%}${PROMPT_STATUS}%{${_linedown}%}"
 
 fi
