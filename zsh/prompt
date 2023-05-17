@@ -10,7 +10,7 @@ if [[ -o interactive ]]; then
   red='%F{203}'
   bg_red='%K{203}'
   RED='%B%F{red}'
-  blue='%F{blue}'
+  blue='%F{69}'
   BLUE='%B%F{69}'
   cyan='%F{cyan}'
   CYAN='%B%F{blue}'
@@ -45,7 +45,7 @@ if [[ -o interactive ]]; then
       echo "${red}${bg_red}█%F{black}error: %?%{%b${red}${bg_red}█%k%f%}"
     fi
   }
-  PROMPT_INFO="%{${grey}%}[%t]%{${NC}%} %{${light_green}%}%n%{${NC}%} %{${BLUE}%}%~"
+  PROMPT_INFO="%{${grey}%}[%t]%{${NC}%} %{${light_green}%}%n%{${NC}%} %{${blue}%}%~"
   PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
   PROMPT_GIT="${light_orange}\$(__git_ps1)"
   PROMPT_FOOTER="${_newline}%{\$(is_vim_running && echo \"${magenta}\" || echo \"${grey}\")%}↳ %{${WHITE}%}$ %{${NC}%}"
