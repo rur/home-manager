@@ -7,17 +7,15 @@
 
 [alias]
     c = commit -v
+    ca = commit --amend
     co = checkout
     cob = checkout -b
     s = status
     br = branch
+    bra = branch -alvv
     d = diff
-    dd = diff --cached`
-    l = git log --oneline --graph
-    cp = cherry-pick
-    ps = push
-    pl = pull
-    pb = pull --rebase
+    dd = diff --cached
+    l = log --oneline --graph
 
 [core]
     pager = delta
