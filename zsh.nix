@@ -8,8 +8,8 @@
 
   programs.zsh = {
     enable = true;
-    profileExtra = builtins.readFile ./zsh/profile;
-    initExtraFirst = builtins.readFile ./zsh/prompt;
+    profileExtra = builtins.readFile ./zsh/profile.zsh;
+    initExtraFirst = builtins.readFile ./zsh/prompt.zsh;
     initExtra = builtins.readFile ./zsh/zshrc;
     logoutExtra = builtins.readFile ./zsh/logout;
     history.ignoreSpace = true;

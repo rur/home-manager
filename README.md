@@ -26,15 +26,16 @@ Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manag
    ```bash
    $ git clone https://github.com/rur/home-manager.git && cd home-manager
    ```
-1. Run the flake and activate your env**:
+1. Run the flake and activate your env
    ```bash
    $ make <machine>
    ```
-1. Then you can update dependencies**:
+1. Then you can update dependencies:
    ```bash
    $ make <machine>-update
    ```
-1. You can also remove the config (imperfectly) **:
+1. You can also remove the config (revert dotfiles manually):
    ```bash
    $ make <machine>-remove
    ```
+
