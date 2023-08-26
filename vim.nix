@@ -44,6 +44,7 @@ in {
       vim-mundo
       vim-polyglot
       vim-gitgutter
+      nerdtree
     ];
     extraConfig = ''
       set encoding=utf-8

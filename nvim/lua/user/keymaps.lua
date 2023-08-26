@@ -26,7 +26,13 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
-keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+-- delete current buffer switching to previous buffer
+keymap("n", "<leader>w", ":bp|bd #<CR>", opts)
+
+-- toggle file navigation
+keymap("n", "<leader>e", ":NERDTreeToggle<cr>", opts)
+
+-- return will clear search highlight
 keymap("n", "<CR>", ":nohlsearch<cr>", opts)
 
 -- Resize with arrows

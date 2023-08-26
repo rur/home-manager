@@ -71,4 +71,6 @@ lspconfig.pylsp.setup({
   },
 })
 
+lspconfig.tsserver.setup({})
+
 handlers.setup()
