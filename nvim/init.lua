@@ -6,4 +6,5 @@ require "user.lsp"
 require "user.helpers"
 require "user.telescope"
 require "user.autopairs"
-require("user.misc")
+require "user.misc"
+require "user.filetype"
