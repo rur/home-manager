@@ -100,3 +100,16 @@ function find_and_edit() {
   vim $files
 }
 
+function scml() {
+  echo $(find ~/code/ -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")
+}
+
+function scm() {
+  location=$(scml "$1")
+  if [[ -d "${location}" ]]; then
+    cd "${location}"
+    tmux rename-window "$(basename "${location}")" || true # ignore failure
+  else
+    return 1
+  fi
+}

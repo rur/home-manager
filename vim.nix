@@ -1,15 +1,15 @@
 { pkgs, ... }:
 let
   #.... this is an example of fetching a plugin not found in nixpkgs
-  # goldenview = pkgs.vimUtils.buildVimPluginFrom2Nix {
-  #   name = "goldenview";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "zhaocai";
-  #     repo = "GoldenView.Vim";
-  #     rev = "ac0ee3014caa36c52e8352d11c308b27a159113c";
-  #     sha256 = "1gzp81spsbg20svwd14rixhgl39ir458p5k9q5jjv9l5rbnbinad";
-  #   };
-  # };
+  vim-delve = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-delve";
+    src = pkgs.fetchFromGitHub {
+      owner = "sebdah";
+      repo = "vim-delve";
+      rev = "41d6ad294fb6dd5090f5f938318fc4ed73b6e1ea";
+      sha256 = "sha256-wMDTMMvtjkPaWtlV6SWlQ5B7YVsJ4gjPZKPactW8HAE=";
+    };
+  };
 in {
   programs.neovim = {
     enable = true;
@@ -35,7 +35,6 @@ in {
       plenary-nvim
       popup-nvim
       telescope-nvim
-      vim-go
       vim-nix
 
       lightline-vim
@@ -44,7 +43,12 @@ in {
       vim-mundo
       vim-polyglot
       vim-gitgutter
-      nerdtree
+      nvim-tree-lua
+      bufferline-nvim
+      editorconfig-nvim
+
+      vim-go
+      vim-delve
     ];
     extraConfig = ''
       set encoding=utf-8

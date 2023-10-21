@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -30,7 +32,10 @@ WHITE='\[\e[1;97m\]'
 NC='\[\e[0m\]'
 
 function is_vim_running {
-  jobs | grep -o 'vim' &> /dev/null
+  if jobs | grep -q 'vi'; then
+    return 0
+  fi
+  return 1
 }
 
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
@@ -132,4 +137,19 @@ function find_and_edit() {
   fi
   vim $files
 }
+
+function scml {
+  echo $(find ~/code/ -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")
+}
+
+function scm {
+  location=$(scml "$1")
+  if [[ -d "${location}" ]]; then
+    cd "${location}"
+    tmux rename-window "$(basename "${location}")" || true # ignore failure
+  else
+    return 1
+  fi
+}
+
 

@@ -39,3 +39,19 @@ vim.cmd "set whichwrap+=<,>,[,],h,l"
 --vim.cmd [[set iskeyword+=-]]       -- vim will treat "-" as an word character
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
+vim.cmd [[
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'enable': {
+      \   'tabline': 0
+      \ },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+]]
+

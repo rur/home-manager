@@ -30,7 +30,7 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<leader>w", ":bp|bd #<CR>", opts)
 
 -- toggle file navigation
-keymap("n", "<leader>e", ":NERDTreeToggle<cr>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
 -- return will clear search highlight
 keymap("n", "<CR>", ":nohlsearch<cr>", opts)
