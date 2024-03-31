@@ -14,8 +14,18 @@ M.setup = function()
   end
 
   local config = {
+    virtual_text = {
+        source = true,
+        format = function(diagnostic)
+            if diagnostic.user_data and diagnostic.user_data.code then
+                return string.format('%s %s', diagnostic.user_data.code, diagnostic.message)
+            else
+                return diagnostic.message
+            end
+        end,
+    },
     -- disable virtual text
-    virtual_text = false,
+    -- virtual_text = false,
     -- show signs
     signs = {
       active = signs,
