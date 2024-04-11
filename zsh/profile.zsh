@@ -101,7 +101,7 @@ function find_and_edit() {
 }
 
 function scml() {
-  echo $(find ~/code/ -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")
+  echo $(find ~/code -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")
 }
 
 function scm() {

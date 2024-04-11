@@ -27,6 +27,7 @@
       grep = "grep --color=auto";
       sudo = "sudo ";
       nv = "nvim";
+      cl = "clear";
       fe = "find_and_edit"; # see .profile for function definition
     };
   };

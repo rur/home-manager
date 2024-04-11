@@ -29,6 +29,7 @@ in {
       friendly-snippets
       luasnip
       nord-nvim
+      onehalf
       null-ls-nvim
       nvim-autopairs
       nvim-lspconfig
@@ -49,6 +50,8 @@ in {
 
       vim-go
       vim-delve
+
+      true-zen-nvim
     ];
     extraConfig = ''
       set encoding=utf-8
