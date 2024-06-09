@@ -35,6 +35,10 @@ vim.opt.sidescrolloff = 8
 
 vim.opt.shortmess:append "c"
 
+-- Set the linter for vim-go to golangci-lint
+vim.g.go_metalinter_linter = {'golangci-lint'}
+vim.g.go_metalinter_fast = 1
+
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 --vim.cmd [[set iskeyword+=-]]       -- vim will treat "-" as an word character
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
