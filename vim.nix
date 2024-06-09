@@ -47,11 +47,10 @@ in {
       nvim-tree-lua
       bufferline-nvim
       editorconfig-nvim
+      zen-mode-nvim
 
       vim-go
       vim-delve
-
-      true-zen-nvim
     ];
     extraConfig = ''
       set encoding=utf-8
