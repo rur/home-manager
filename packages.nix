@@ -18,5 +18,6 @@
     fswatch
     wget
     fd
+    gh
   ];
 }

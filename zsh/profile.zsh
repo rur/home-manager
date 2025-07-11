@@ -100,8 +100,20 @@ function find_and_edit() {
   vim $files
 }
 
+function find_git_branch() {
+  branch="$(git branch --format '%(refname:short)' | fzf --select-1 --multi --query="$@")"
+  if [[ -n "$branch" ]]; then
+    git checkout "$branch"
+  fi
+}
+
 function scml() {
-  echo $(find ~/code -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")
+  locations_arr=( ${(s/,/)CODE_SEARCH_LIST} )
+  if [[ "${#locations_arr[@]}" == 0 ]]; then
+    echo "no CODE_SEARCH_LIST defined"
+    return 1
+  fi
+  echo $(find ${locations_arr[@]} -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")
 }
 
 function scm() {

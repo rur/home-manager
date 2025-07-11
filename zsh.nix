@@ -28,7 +28,8 @@
       sudo = "sudo ";
       nv = "nvim";
       cl = "clear";
-      fe = "find_and_edit"; # see .profile for function definition
+      fe = "find_and_edit"; # see zsh/profile.zsh for function definition
+      fb = "find_git_branch"; # see zsh/profile.zsh for function definition
     };
   };
 
