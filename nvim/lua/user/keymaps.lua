@@ -74,8 +74,22 @@ keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- Telescope
-keymap("n", "<leader>p", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<leader>P", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<C-p>", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
+keymap("n", "<leader>p", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>P", "<cmd>Telescope commands<cr>", opts)
+
+-- location list toggle
+keymap("n", "<leader>lc", ":lclose<cr>", opts)
+keymap("n", "<leader>ll", ":lopen<cr>", opts)
+
+-- quickfix list toggle
+keymap("n", "<leader>qc", ":cclose<cr>", opts)
+keymap("n", "<leader>qq", ":copen<cr>", opts)
 
 -- completions
 keymap("n", "<leader>tc", ":lua ToggleCompletion()<cr>", opts)
+
+keymap("n", "G", ":Git<cr>", opts)
+keymap("n", "]g", ":GitGutterNextHunk<cr>", opts)
+keymap("n", "[g", ":GitGutterPrevHunk<cr>", opts)
+
