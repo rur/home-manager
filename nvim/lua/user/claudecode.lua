@@ -1,5 +1,6 @@
 local status_ok, claudecode = pcall(require, "claudecode")
 if not status_ok then
+  vim.notify("lua/user/claudecode.lua: failed to require 'claudecode'")
   return
 end
 

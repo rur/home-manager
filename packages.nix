@@ -19,5 +19,6 @@
     wget
     fd
     gh
+    imagemagick
   ];
 }
