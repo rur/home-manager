@@ -52,5 +52,6 @@ The macbookpro configuration (`macbookpro.nix`) is designed for macOS systems an
   - Zsh shell configuration optimized for macOS
   - Complete development toolchain (git, vim, tmux, etc.)
 - **Session management**: Custom PATH additions and environment variables for development workflow
+- **Nix garbage collection**: Automated cleanup via launchd job to manage disk space
 
 Apply with: `make macbookpro`
