@@ -20,6 +20,21 @@ in {
     "$HOME/.local/bin"
   ];
 
+  # Nix garbage collection cron job
+  launchd.agents.nix-gc = {
+    enable = true;
+    config = {
+      ProgramArguments = [ "${pkgs.nix}/bin/nix-collect-garbage" "-d" ];
+      StartCalendarInterval = [
+        {
+          Weekday = 0; # Sunday
+          Hour = 3;
+          Minute = 0;
+        }
+      ];
+    };
+  };
+
   # unstable packages
   home.packages = with pkgs-unstable; [claude-code];
 
