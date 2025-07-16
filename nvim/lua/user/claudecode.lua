@@ -4,7 +4,10 @@ if not status_ok then
 end
 
 claudecode.setup({
-  -- Optional configuration
-  -- The plugin should work out of the box with default settings
-  -- when claude-code is available in PATH
+  terminal = {
+    provider = "snacks",
+    split_side = "right",
+    split_width_percentage = 0.35,
+    auto_close = false
+  }
 })
