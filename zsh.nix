@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
@@ -9,8 +9,7 @@
   programs.zsh = {
     enable = true;
     profileExtra = builtins.readFile ./zsh/profile.zsh;
-    initExtraFirst = builtins.readFile ./zsh/prompt.zsh;
-    initExtra = builtins.readFile ./zsh/zshrc;
+    initContent = lib.mkBefore (builtins.readFile ./zsh/prompt.zsh + "\n" + builtins.readFile ./zsh/zshrc);
     logoutExtra = builtins.readFile ./zsh/logout;
     history.ignoreSpace = true;
     history.ignoreDups = true;

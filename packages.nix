@@ -10,7 +10,7 @@
     gnused
     htop
     jq
-    nixfmt
+    nixfmt-classic
     ripgrep
     tree
     pstree

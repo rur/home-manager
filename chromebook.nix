@@ -12,7 +12,7 @@ in {
   programs.home-manager.enable = true;
 
   home.sessionVariables = {
-    CODE_SEARCH_LIST = builtins.concatStringsSep "," codeFolders;
+    CODE_PATH = builtins.concatStringsSep ":" codeFolders;
   };
   
   imports = [

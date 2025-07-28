@@ -62,7 +62,7 @@ The `nvim/` directory contains a separate flake-based Neovim configuration with:
 ### Shell Environments
 - **Bash**: Configured in `bash.nix` with custom `bashrc`, `profile`, and `logout`
 - **Zsh**: macOS-specific shell with custom prompt and profile in `zsh/`
-- Both shells set `CODE_SEARCH_LIST` environment variable for development directories
+- Both shells set `CODE_PATH` environment variable for development directories
 
 ### Package Management
 - Core packages defined in `packages.nix`

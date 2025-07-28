@@ -101,13 +101,13 @@ function find_git_branch() {
 function scml() {
   if [[ -n "$ZSH_VERSION" ]]; then
     # zsh-specific array splitting
-    locations_arr=( ${(s/,/)CODE_SEARCH_LIST} )
+    locations_arr=( ${(s/:/)CODE_PATH} )
   else
     # bash-compatible approach
-    IFS=',' read -ra locations_arr <<< "$CODE_SEARCH_LIST"
+    IFS=':' read -ra locations_arr <<< "$CODE_PATH"
   fi
   if [[ "${#locations_arr[@]}" == 0 ]]; then
-    echo "no CODE_SEARCH_LIST defined"
+    echo "no CODE_PATH defined"
     return 1
   fi
   echo $(find ${locations_arr[@]} -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")

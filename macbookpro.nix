@@ -13,7 +13,7 @@ in {
 
   
   home.sessionVariables = {
-    CODE_SEARCH_LIST = builtins.concatStringsSep "," codeFolders;
+    CODE_PATH = builtins.concatStringsSep ":" codeFolders;
   };
 
   home.sessionPath = [
