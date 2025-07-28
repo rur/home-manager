@@ -39,3 +39,19 @@ Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manag
    $ make <machine>-remove
    ```
 
+## Machines
+
+### Macbook Pro
+The macbookpro configuration (`macbookpro.nix`) is designed for macOS systems and includes:
+
+- **User**: ruaidhridevery with home directory at `/Users/ruaidhridevery`
+- **Unstable packages**: Access to bleeding-edge packages via `pkgs-unstable`, including claude-code
+- **Development environment**: Pre-configured code search paths for `~/code` and `~/learning` directories
+- **Tool integrations**: 
+  - Symlinked claude-code binary for claudecode.nvim plugin compatibility
+  - Zsh shell configuration optimized for macOS
+  - Complete development toolchain (git, vim, tmux, etc.)
+- **Session management**: Custom PATH additions and environment variables for development workflow
+- **Nix garbage collection**: Automated cleanup via launchd job to manage disk space
+
+Apply with: `make macbookpro`

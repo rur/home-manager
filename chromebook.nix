@@ -8,11 +8,11 @@ in {
 
   home.username = "ruaidhridevery";
   home.homeDirectory = "/home/ruaidhridevery";
-  home.stateVersion = "22.11";
+  home.stateVersion = "25.05";
   programs.home-manager.enable = true;
 
   home.sessionVariables = {
-    CODE_SEARCH_LIST = builtins.concatStringsSep "," codeFolders;
+    CODE_PATH = builtins.concatStringsSep ":" codeFolders;
   };
   
   imports = [

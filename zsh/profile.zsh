@@ -1,10 +1,14 @@
+#!/bin/zsh
+
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
 # Disable console start/stop: makes ^S and ^Q go through
-stty -ixon
+if [[ -t 0 ]]; then
+  stty -ixon
+fi
 
 # prevent ctrl-d closing terminal window
 set -o ignoreeof
@@ -71,19 +75,6 @@ function tat {
   fi
 }
 
-# repeat command
-function repeat() {
-  number=$1
-  shift
-  for n in $(seq $number); do
-    if ! $@; then
-      echo "Sorry, something failed!"
-      return 1
-    fi
-  done
-  return 0
-}
-
 # find and edit
 function find_and_edit() {
   if test -d .git
@@ -108,9 +99,15 @@ function find_git_branch() {
 }
 
 function scml() {
-  locations_arr=( ${(s/,/)CODE_SEARCH_LIST} )
+  if [[ -n "$ZSH_VERSION" ]]; then
+    # zsh-specific array splitting
+    locations_arr=( ${(s/:/)CODE_PATH} )
+  else
+    # bash-compatible approach
+    IFS=':' read -ra locations_arr <<< "$CODE_PATH"
+  fi
   if [[ "${#locations_arr[@]}" == 0 ]]; then
-    echo "no CODE_SEARCH_LIST defined"
+    echo "no CODE_PATH defined"
     return 1
   fi
   echo $(find ${locations_arr[@]} -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
   codeFolders = [
@@ -8,12 +8,39 @@ let
 in {
   home.username = "ruaidhridevery";
   home.homeDirectory = "/Users/ruaidhridevery";
-  home.stateVersion = "22.11";
+  home.stateVersion = "25.05";
   programs.home-manager.enable = true;
 
   
   home.sessionVariables = {
-    CODE_SEARCH_LIST = builtins.concatStringsSep "," codeFolders;
+    CODE_PATH = builtins.concatStringsSep ":" codeFolders;
+  };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
+  # Nix garbage collection cron job
+  launchd.agents.nix-gc = {
+    enable = true;
+    config = {
+      ProgramArguments = [ "${pkgs.nix}/bin/nix-collect-garbage" "-d" ];
+      StartCalendarInterval = [
+        {
+          Weekday = 0; # Sunday
+          Hour = 3;
+          Minute = 0;
+        }
+      ];
+    };
+  };
+
+  # unstable packages
+  home.packages = with pkgs-unstable; [claude-code];
+
+  # Create symlink for claudecode.nvim plugin compatibility
+  home.file.".local/bin/claude-code" = {
+    source = "${pkgs-unstable.claude-code}/bin/claude";
   };
 
   imports = [

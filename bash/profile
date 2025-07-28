@@ -146,9 +146,9 @@ function find_git_branch() {
 }
 
 function scml() {
-  IFS="," read -r -a locations_arr <<< "$CODE_SEARCH_LIST"
+  IFS=":" read -r -a locations_arr <<< "$CODE_PATH"
   if [[ "${#locations_arr[@]}" == 0 ]]; then
-    echo "no CODE_SEARCH_LIST defined"
+    echo "no CODE_PATH defined"
     return 1
   fi
   echo $(find ${locations_arr[@]} -name "README.*" | xargs -I{} dirname {} | fzf -q "$1")

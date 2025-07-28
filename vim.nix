@@ -10,6 +10,16 @@ let
       sha256 = "sha256-wMDTMMvtjkPaWtlV6SWlQ5B7YVsJ4gjPZKPactW8HAE=";
     };
   };
+  
+  claudecode-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "claudecode-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "coder";
+      repo = "claudecode.nvim";
+      rev = "main";
+      sha256 = "1hdzv8wjm0dgam7fimsm2h2kfnc8mp8gi7qyv4qddgfj7mir77l7";
+    };
+  };
 in {
   programs.neovim = {
     enable = true;
@@ -38,6 +48,8 @@ in {
       telescope-nvim
       vim-nix
 
+      snacks-nvim
+
       lightline-vim
       splitjoin-vim
       tabular
@@ -51,6 +63,7 @@ in {
 
       vim-go
       vim-delve
+      claudecode-nvim
     ];
     extraConfig = ''
       set encoding=utf-8
