@@ -49,6 +49,7 @@ in {
 
       vim-go
       vim-delve
+      zen-mode-nvim
     ];
     extraConfig = ''
       set encoding=utf-8
