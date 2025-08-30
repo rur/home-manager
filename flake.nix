@@ -19,25 +19,33 @@
     homeConfigurations = {
       "ruaidhridevery@chromebook" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ ./chromebook.nix ];
+        modules = [ 
+          {
+            _module.args.pkgs-unstable = import nixpkgs-unstable {
+              system = "x86_64-linux";
+              config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+                "claude-code"
+              ];
+            };
+          }
+          ./chromebook.nix 
+        ];
       };
       "ruaidhridevery@macbookpro" = home-manager.lib.homeManagerConfiguration 
-      (let
-        lib = nixpkgs.lib; 
-      in {
+      {
         pkgs = nixpkgs.legacyPackages.x86_64-darwin;
         modules = [
           {
             _module.args.pkgs-unstable = import nixpkgs-unstable {
               system = "x86_64-darwin";
-              config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+              config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
                 "claude-code"
               ];
             };
           }
           ./macbookpro.nix
         ];
-      });
+      };
     };
   };
 }

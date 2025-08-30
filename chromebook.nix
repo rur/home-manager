@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
   codeFolders = [
@@ -15,6 +15,9 @@ in {
     CODE_PATH = builtins.concatStringsSep ":" codeFolders;
   };
   
+  # unstable packages
+  home.packages = with pkgs-unstable; [claude-code];
+
   imports = [
     ./packages.nix
     ./git.nix
