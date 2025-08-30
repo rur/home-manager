@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
@@ -9,8 +9,7 @@
   programs.zsh = {
     enable = true;
     profileExtra = builtins.readFile ./zsh/profile.zsh;
-    initExtraFirst = builtins.readFile ./zsh/prompt.zsh;
-    initExtra = builtins.readFile ./zsh/zshrc;
+    initContent = lib.mkBefore (builtins.readFile ./zsh/prompt.zsh + "\n" + builtins.readFile ./zsh/zshrc);
     logoutExtra = builtins.readFile ./zsh/logout;
     history.ignoreSpace = true;
     history.ignoreDups = true;
@@ -27,7 +26,9 @@
       grep = "grep --color=auto";
       sudo = "sudo ";
       nv = "nvim";
-      fe = "find_and_edit"; # see .profile for function definition
+      cl = "clear";
+      fe = "find_and_edit"; # see zsh/profile.zsh for function definition
+      fb = "find_git_branch"; # see zsh/profile.zsh for function definition
     };
   };
 

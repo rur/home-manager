@@ -10,7 +10,7 @@
     gnused
     htop
     jq
-    nixfmt
+    nixfmt-classic
     ripgrep
     tree
     pstree
@@ -18,5 +18,7 @@
     fswatch
     wget
     fd
+    gh
+    imagemagick
   ];
 }
