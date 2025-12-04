@@ -16,8 +16,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "coder";
       repo = "claudecode.nvim";
-      rev = "main";
-      sha256 = "1hdzv8wjm0dgam7fimsm2h2kfnc8mp8gi7qyv4qddgfj7mir77l7";
+      rev = "985b4b117ea13ec85c92830ecac8f63543dd5ead";
+      sha256 = "sha256-b4jCKIqowkVuWhI9jxthluZISBOnIc8eOIgkw5++HRY=";
     };
   };
 in {
@@ -63,6 +63,7 @@ in {
 
       vim-go
       vim-delve
+      zen-mode-nvim
       claudecode-nvim
     ];
     extraConfig = ''
