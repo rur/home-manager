@@ -14,6 +14,30 @@ in {
   home.sessionVariables = {
     CODE_PATH = builtins.concatStringsSep ":" codeFolders;
   };
+
+  # Nix garbage collection systemd service
+  systemd.user.services.nix-gc = {
+    Unit = {
+      Description = "Nix garbage collection";
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.nix}/bin/nix-collect-garbage -d";
+    };
+  };
+
+  systemd.user.timers.nix-gc = {
+    Unit = {
+      Description = "Run nix garbage collection weekly";
+    };
+    Timer = {
+      OnCalendar = "Sun *-*-* 03:00:00";
+      Persistent = true;
+    };
+    Install = {
+      WantedBy = [ "timers.target" ];
+    };
+  };
   
   # unstable packages
   home.packages = with pkgs-unstable; [claude-code];
