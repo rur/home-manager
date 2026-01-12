@@ -1,21 +1,21 @@
-local status_ok, lspconfig = pcall(require, "lspconfig")
-if not status_ok then
-  vim.notify("lua/user/lsp/init.lua failed to require 'lspconfig'")
-  return
-end
-local util = require "lspconfig/util"
 local handlers = require "user.lsp.handlers"
 
--- 
+--
 -- Language server settings
 --
 
-lspconfig.lua_ls.setup({
-	on_attach = function(client, bufnr)
-   -- apply standard bindings 
-   handlers.on_attach(client, bufnr)
+-- Configure lua_ls
+vim.lsp.config['lua_ls'] = {
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  root_dir = function(fname)
+    return vim.fs.root(fname, {'.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git'})
   end,
-	capabilities = handlers.capabilities,
+  on_attach = function(client, bufnr)
+    -- apply standard bindings
+    handlers.on_attach(client, bufnr)
+  end,
+  capabilities = handlers.capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -35,14 +35,17 @@ lspconfig.lua_ls.setup({
       },
     },
   },
-})
+}
 
-lspconfig.gopls.setup {
-  on_attach = handlers.on_attach,
-  capabilities = handlers.capabilities,
+-- Configure gopls
+vim.lsp.config['gopls'] = {
   cmd = {"gopls", "serve"},
   filetypes = {"go", "gomod"},
-  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+  root_dir = function(fname)
+    return vim.fs.root(fname, {"go.work", "go.mod", ".git"})
+  end,
+  on_attach = handlers.on_attach,
+  capabilities = handlers.capabilities,
   settings = {
     gopls = {
       analyses = {
@@ -53,10 +56,16 @@ lspconfig.gopls.setup {
   },
 }
 
-lspconfig.pylsp.setup({
-    on_attach = handlers.on_attach,
-    capabilities = handlers.capabilities,
-    settings = {
+-- Configure pylsp
+vim.lsp.config['pylsp'] = {
+  cmd = { 'pylsp' },
+  filetypes = { 'python' },
+  root_dir = function(fname)
+    return vim.fs.root(fname, {'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', '.git'})
+  end,
+  on_attach = handlers.on_attach,
+  capabilities = handlers.capabilities,
+  settings = {
     pylsp = {
       plugins = {
         pycodestyle = {
@@ -69,6 +78,11 @@ lspconfig.pylsp.setup({
       }
     }
   },
-})
+}
+
+-- Enable the language servers
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('gopls')
+vim.lsp.enable('pylsp')
 
 handlers.setup()

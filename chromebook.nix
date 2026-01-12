@@ -8,13 +8,13 @@ in {
 
   home.username = "ruaidhridevery";
   home.homeDirectory = "/home/ruaidhridevery";
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
   programs.home-manager.enable = true;
 
   home.sessionVariables = {
     CODE_PATH = builtins.concatStringsSep ":" codeFolders;
   };
-  
+
   # unstable packages
   home.packages = with pkgs-unstable; [claude-code];
 

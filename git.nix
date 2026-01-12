@@ -3,7 +3,7 @@
 {
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
+    package = pkgs.git;
     includes = [{ path = ./git/.gitconfig; }];
   };
 }
