@@ -8,7 +8,7 @@ let
 in {
   home.username = "ruaidhridevery";
   home.homeDirectory = "/Users/ruaidhridevery";
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
   programs.home-manager.enable = true;
 
   
