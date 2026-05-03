@@ -46,7 +46,8 @@ in {
   imports = [
     ./packages.nix
     ./git.nix
-    ./vim.nix
+    # ./vim.nix  # Replaced with nixvim.nix
+    ./nixvim.nix
     ./tmux.nix
     ./zsh.nix
     ./rest.nix
