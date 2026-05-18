@@ -77,7 +77,4 @@ The agent-operator configuration (`agent-operator.nix`) is designed for a headle
 - **Code search paths**: `CODE_PATH` set to `~/code`
 - **Nix garbage collection**: Not configured — run `nix-collect-garbage -d` manually as needed
 
-Apply with:
-```bash
-nix run . -- switch --flake '.#operator@agent-host' -b backup
-```
+Apply with NixOS agent system configuration
