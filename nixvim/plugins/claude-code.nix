@@ -2,17 +2,9 @@
 { pkgs, ... }:
 {
   programs.nixvim = {
-    # Add the claudecode.nvim plugin
+    # Add the claudecode.nvim plugin from nixpkgs
     extraPlugins = with pkgs.vimPlugins; [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "claudecode-nvim";
-        src = pkgs.fetchFromGitHub {
-          owner = "coder";
-          repo = "claudecode.nvim";
-          rev = "985b4b117ea13ec85c92830ecac8f63543dd5ead";
-          sha256 = "sha256-b4jCKIqowkVuWhI9jxthluZISBOnIc8eOIgkw5++HRY=";
-        };
-      })
+      claudecode-nvim
     ];
 
     # Claude Code setup and keymaps
