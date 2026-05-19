@@ -53,6 +53,21 @@
           ./macbookpro.nix
         ];
       };
+      "operator@agent-host" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          nixvim.homeManagerModules.nixvim
+          {
+            _module.args.pkgs-unstable = import nixpkgs-unstable {
+              system = "x86_64-linux";
+              config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+                "claude-code"
+              ];
+            };
+          }
+          ./agent-operator.nix
+        ];
+      };
     };
   };
 }

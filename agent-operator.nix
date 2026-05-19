@@ -6,8 +6,8 @@ let
   ];
 in {
 
-  home.username = "ruaidhridevery";
-  home.homeDirectory = "/home/ruaidhridevery";
+  home.username = "operator";
+  home.homeDirectory = "/home/operator";
   home.stateVersion = "25.11";
   programs.home-manager.enable = true;
 
