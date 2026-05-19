@@ -8,7 +8,9 @@
 
   programs.bash = {
     enable = true;
-    profileExtra = builtins.readFile ./bash/profile;
+    profileExtra = ''
+      . ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
+    '' + builtins.readFile ./bash/profile;
     initExtra = builtins.readFile ./bash/bashrc;
     logoutExtra = builtins.readFile ./bash/logout;
     historyControl = [ "ignorespace" "ignoredups" ];

@@ -16,7 +16,10 @@ in {
   };
 
   # unstable packages
-  home.packages = with pkgs-unstable; [claude-code];
+  home.packages = [ 
+    pkgs-unstable.claude-code
+    pkgs.tailscale
+  ];
 
   imports = [
     ./packages.nix
