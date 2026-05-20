@@ -4,7 +4,7 @@ if [ "$SHLVL" = 1 ]; then
 fi
 
 # kill local ssh-agent daemon if it exists
-if ( "$SSH_AGENT_PID" != "" ) then
+if [ -n "$SSH_AGENT_PID" ]; then
   eval `ssh-agent -k`
 fi
 
