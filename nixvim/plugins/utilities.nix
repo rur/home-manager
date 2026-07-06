@@ -8,6 +8,8 @@
 
       # Snacks.nvim for terminal and notifications
       snacks-nvim
+      
+      diffview-nvim
     ];
 
     extraConfigLua = ''
