@@ -8,7 +8,7 @@ let
 in {
   home.username = "ruaidhridevery";
   home.homeDirectory = "/Users/ruaidhridevery";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
   programs.home-manager.enable = true;
 
   
@@ -46,7 +46,8 @@ in {
   imports = [
     ./packages.nix
     ./git.nix
-    ./vim.nix
+    # ./vim.nix  # Replaced with nixvim.nix
+    ./nixvim.nix
     ./tmux.nix
     ./zsh.nix
     ./rest.nix

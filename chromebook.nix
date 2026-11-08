@@ -8,7 +8,7 @@ in {
 
   home.username = "ruaidhridevery";
   home.homeDirectory = "/home/ruaidhridevery";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
   programs.home-manager.enable = true;
 
   home.sessionVariables = {
@@ -16,12 +16,15 @@ in {
   };
 
   # unstable packages
-  home.packages = with pkgs-unstable; [claude-code];
+  home.packages = [ 
+    pkgs-unstable.claude-code
+    pkgs.tailscale
+  ];
 
   imports = [
     ./packages.nix
     ./git.nix
-    ./vim.nix
+    ./nixvim.nix
     ./tmux.nix
     ./bash.nix
     ./rest.nix

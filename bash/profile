@@ -10,8 +10,6 @@ if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
   . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
 
-. "$HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh"
-
 ## Fancy prompt
 red='\[\e[0;31m\]'
 RED='\[\e[1;91m\]'

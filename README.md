@@ -15,7 +15,9 @@ Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manag
    $ cat <<EOF >> ~/.config/nix/nix.conf
    experimental-features = nix-command flakes
    EOF
-
+   ```
+   On macOS, also restart the Nix daemon:
+   ```bash
    $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
    ```
 1. Install Make in your nix profile:
@@ -45,13 +47,34 @@ Home environment setup, powered by [Nix](https://nixos.org/nix/) and [home-manag
 The macbookpro configuration (`macbookpro.nix`) is designed for macOS systems and includes:
 
 - **User**: ruaidhridevery with home directory at `/Users/ruaidhridevery`
-- **Unstable packages**: Access to bleeding-edge packages via `pkgs-unstable`, including claude-code
-- **Development environment**: Pre-configured code search paths for `~/code` and `~/learning` directories
-- **Tool integrations**: 
-  - Symlinked claude-code binary for claudecode.nvim plugin compatibility
-  - Zsh shell configuration optimized for macOS
-  - Complete development toolchain (git, vim, tmux, etc.)
-- **Session management**: Custom PATH additions and environment variables for development workflow
-- **Nix garbage collection**: Automated cleanup via launchd job to manage disk space
+- **Platform**: x86_64-darwin
+- **Shell**: Zsh
+- **Unstable packages**: claude-code (with symlink at `~/.local/bin/claude-code` for claudecode.nvim compatibility)
+- **Code search paths**: `CODE_PATH` set to `~/code` and `~/learning`
+- **Nix garbage collection**: Automated cleanup via launchd job — runs `nix-collect-garbage -d` every Sunday at 03:00
 
 Apply with: `make macbookpro`
+
+### Chromebook
+The chromebook configuration (`chromebook.nix`) is designed for Linux systems and includes:
+
+- **User**: ruaidhridevery with home directory at `/home/ruaidhridevery`
+- **Platform**: x86_64-linux
+- **Shell**: Bash
+- **Unstable packages**: claude-code
+- **Code search paths**: `CODE_PATH` set to `~/code`
+- **Nix garbage collection**: Not configured — run `nix-collect-garbage -d` manually as needed
+
+Apply with: `make chromebook`
+
+### Agent Host
+The agent-operator configuration (`agent-operator.nix`) is designed for a headless Linux agent environment and includes:
+
+- **User**: operator with home directory at `/home/operator`
+- **Platform**: x86_64-linux
+- **Shell**: Bash
+- **Unstable packages**: claude-code
+- **Code search paths**: `CODE_PATH` set to `~/code`
+- **Nix garbage collection**: Not configured — run `nix-collect-garbage -d` manually as needed
+
+Apply with NixOS agent system configuration
