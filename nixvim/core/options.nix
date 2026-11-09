@@ -37,7 +37,10 @@
     smartcase = true;
 
     # Completion
-    completeopt = ["menuone" "noselect"];
+    completeopt = [
+      "menuone"
+      "noselect"
+    ];
     pumheight = 10;
 
     # Performance

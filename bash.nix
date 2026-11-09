@@ -10,13 +10,16 @@
     enable = true;
     profileExtra = ''
       . ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
-    '' + builtins.readFile ./bash/profile;
+    ''
+    + builtins.readFile ./bash/profile;
     initExtra = builtins.readFile ./bash/bashrc;
     logoutExtra = builtins.readFile ./bash/logout;
-    historyControl = [ "ignorespace" "ignoredups" ];
+    historyControl = [
+      "ignorespace"
+      "ignoredups"
+    ];
     sessionVariables = {
       PROMPT_COMMAND = "echo";
-      EDITOR = "nvim";
       SHELL = "${pkgs.bashInteractive}/bin/bash";
       BAT_THEME = "OneHalfDark";
     };

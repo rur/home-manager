@@ -1,20 +1,21 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   codeFolders = [
     "${config.home.homeDirectory}/code"
     "${config.home.homeDirectory}/learning"
   ];
-in {
+in
+{
   home.username = "ruaidhridevery";
   home.homeDirectory = "/Users/ruaidhridevery";
-  home.stateVersion = "26.05";
-  programs.home-manager.enable = true;
 
-  
-  home.sessionVariables = {
-    CODE_PATH = builtins.concatStringsSep ":" codeFolders;
-  };
+  home.sessionVariables.CODE_PATH = lib.concatStringsSep ":" codeFolders;
 
   home.sessionPath = [
     "$HOME/.local/bin"
@@ -24,7 +25,10 @@ in {
   launchd.agents.nix-gc = {
     enable = true;
     config = {
-      ProgramArguments = [ "${pkgs.nix}/bin/nix-collect-garbage" "-d" ];
+      ProgramArguments = [
+        "${pkgs.nix}/bin/nix-collect-garbage"
+        "-d"
+      ];
       StartCalendarInterval = [
         {
           Weekday = 0; # Sunday
@@ -35,21 +39,13 @@ in {
     };
   };
 
-  # unstable packages
-  home.packages = with pkgs-unstable; [claude-code];
-
   # Create symlink for claudecode.nvim plugin compatibility
   home.file.".local/bin/claude-code" = {
-    source = "${pkgs-unstable.claude-code}/bin/claude";
+    source = "${config.programs.claude-code.finalPackage}/bin/claude";
   };
 
   imports = [
-    ./packages.nix
-    ./git.nix
-    # ./vim.nix  # Replaced with nixvim.nix
-    ./nixvim.nix
-    ./tmux.nix
+    ./common.nix
     ./zsh.nix
-    ./rest.nix
   ];
 }

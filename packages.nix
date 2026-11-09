@@ -11,8 +11,7 @@
     graphviz
     htop
     jq
-    nixfmt-classic
-    ripgrep
+    nixfmt
     tree
     pstree
     watch

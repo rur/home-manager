@@ -9,13 +9,14 @@
   programs.zsh = {
     enable = true;
     profileExtra = builtins.readFile ./zsh/profile.zsh;
-    initContent = lib.mkBefore (builtins.readFile ./zsh/prompt.zsh + "\n" + builtins.readFile ./zsh/zshrc);
+    initContent = lib.mkBefore (
+      builtins.readFile ./zsh/prompt.zsh + "\n" + builtins.readFile ./zsh/zshrc
+    );
     logoutExtra = builtins.readFile ./zsh/logout;
     history.ignoreSpace = true;
     history.ignoreDups = true;
     sessionVariables = {
       PROMPT_COMMAND = "echo";
-      EDITOR = "nvim";
       SHELL = "${pkgs.zsh}/bin/zsh";
       BAT_THEME = "OneHalfDark";
     };
