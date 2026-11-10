@@ -19,7 +19,7 @@ jobs:
       - run: nix build '.#homeConfigurations."operator@agent-host".activationPackage'
 
   build-darwin:
-    runs-on: macos-latest
+    runs-on: macos-26-intel
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v30
