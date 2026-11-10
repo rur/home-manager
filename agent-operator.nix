@@ -1,29 +1,9 @@
-{ config, pkgs, pkgs-unstable, ... }:
-
-let
-  codeFolders = [
-    "${config.home.homeDirectory}/code"
-  ];
-in {
-
+{ ... }: {
   home.username = "operator";
   home.homeDirectory = "/home/operator";
-  home.stateVersion = "26.05";
-  programs.home-manager.enable = true;
-
-  home.sessionVariables = {
-    CODE_PATH = builtins.concatStringsSep ":" codeFolders;
-  };
-
-  # unstable packages
-  home.packages = with pkgs-unstable; [claude-code];
 
   imports = [
-    ./packages.nix
-    ./git.nix
-    ./nixvim.nix
-    ./tmux.nix
+    ./common.nix
     ./bash.nix
-    ./rest.nix
   ];
 }

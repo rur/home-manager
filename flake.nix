@@ -16,58 +16,54 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixvim, ... }: {
-    packages.x86_64-linux.default = home-manager.packages.x86_64-linux.default;
-    packages.x86_64-darwin.default =
-      home-manager.packages.x86_64-darwin.default;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      nixvim,
+      ...
+    }:
+    let
+      # Build a home-manager configuration for a given system + machine module.
+      mkHome =
+        { system, module }:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [
+            nixvim.homeModules.nixvim
+            {
+              _module.args.pkgs-unstable = import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
+              };
+            }
+            module
+          ];
+        };
+    in
+    {
+      packages.x86_64-linux.default = home-manager.packages.x86_64-linux.default;
+      packages.x86_64-darwin.default = home-manager.packages.x86_64-darwin.default;
 
-    homeConfigurations = {
-      "ruaidhridevery@chromebook" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [
-          nixvim.homeManagerModules.nixvim
-          {
-            _module.args.pkgs-unstable = import nixpkgs-unstable {
-              system = "x86_64-linux";
-              config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-                "claude-code"
-              ];
-            };
-          }
-          ./chromebook.nix
-        ];
-      };
-      "ruaidhridevery@macbookpro" = home-manager.lib.homeManagerConfiguration
-      {
-        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
-        modules = [
-          nixvim.homeManagerModules.nixvim
-          {
-            _module.args.pkgs-unstable = import nixpkgs-unstable {
-              system = "x86_64-darwin";
-              config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-                "claude-code"
-              ];
-            };
-          }
-          ./macbookpro.nix
-        ];
-      };
-      "operator@agent-host" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [
-          nixvim.homeManagerModules.nixvim
-          {
-            _module.args.pkgs-unstable = import nixpkgs-unstable {
-              system = "x86_64-linux";
-              config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-                "claude-code"
-              ];
-            };
-          }
-          ./agent-operator.nix
-        ];
+      # `nix fmt` formats every .nix file with the RFC 166 style.
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+      formatter.x86_64-darwin = nixpkgs.legacyPackages.x86_64-darwin.nixfmt;
+
+      homeConfigurations = {
+        "ruaidhridevery@chromebook" = mkHome {
+          system = "x86_64-linux";
+          module = ./chromebook.nix;
+        };
+        "ruaidhridevery@macbookpro" = mkHome {
+          system = "x86_64-darwin";
+          module = ./macbookpro.nix;
+        };
+        "operator@agent-host" = mkHome {
+          system = "x86_64-linux";
+          module = ./agent-operator.nix;
+        };
       };
     };
-  };
 }

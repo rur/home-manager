@@ -11,13 +11,13 @@
         # These match the legacy configuration from nvim/lua/user/bufferline.lua
         indicator = {
           style = "icon";
-          icon = "▎";  # Simple vertical bar
+          icon = "▎"; # Simple vertical bar
         };
-        buffer_close_icon = "×";     # Simple X character
-        modified_icon = "●";          # Simple dot
-        close_icon = "×";             # Simple X character
-        left_trunc_marker = "";       # Empty - no special glyph needed
-        right_trunc_marker = "";      # Empty - no special glyph needed
+        buffer_close_icon = "×"; # Simple X character
+        modified_icon = "●"; # Simple dot
+        close_icon = "×"; # Simple X character
+        left_trunc_marker = ""; # Empty - no special glyph needed
+        right_trunc_marker = ""; # Empty - no special glyph needed
 
         # Offset for file tree
         offsets = [

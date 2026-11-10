@@ -1,4 +1,6 @@
-.PHONY: chromebook chromebook-update chromebook-remove macbookpro macbookpro-update macbookpro-remove flakeupdate
+.PHONY: help chromebook chromebook-update chromebook-remove macbookpro macbookpro-update macbookpro-remove flakeupdate fmt check
+
+.DEFAULT_GOAL := help
 
 help:
 	>&2 echo 'You must specify an environment' && exit 1
@@ -22,5 +24,11 @@ macbookpro-remove:
 	echo 'Home manager uninstalled, I recommend restarting your session'
 
 flakeupdate:
-	nix flake update 
+	nix flake update
+
+fmt:
+	nix fmt
+
+check:
+	nix flake check
 
