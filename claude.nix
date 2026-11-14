@@ -22,6 +22,9 @@
     # ~/.claude/skills/commit/ — concise Conventional-Commits author.
     skills.commit = ./claude/skills/commit;
 
+    # ~/.claude/skills/draft-prompt/ — spar + investigate, then draft a prompt.
+    skills.draft-prompt = ./claude/skills/draft-prompt;
+
     # Drop more files in ./claude/ as these grow:
     # agents.my-agent = ./claude/agents/my-agent.md;
     # commands.deploy = ./claude/commands/deploy.md;
