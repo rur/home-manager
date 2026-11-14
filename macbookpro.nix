@@ -39,6 +39,9 @@ in
     };
   };
 
+  home.packages = [ pkgs.tailscale ];
+
+
   # Create symlink for claudecode.nvim plugin compatibility
   home.file.".local/bin/claude-code" = {
     source = "${config.programs.claude-code.finalPackage}/bin/claude";
