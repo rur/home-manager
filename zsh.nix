@@ -27,6 +27,7 @@
       grep = "grep --color=auto";
       sudo = "sudo ";
       nv = "nvim";
+      vi = "nvim";
       cl = "clear";
       fe = "find_and_edit"; # see zsh/profile.zsh for function definition
       fb = "find_git_branch"; # see zsh/profile.zsh for function definition
